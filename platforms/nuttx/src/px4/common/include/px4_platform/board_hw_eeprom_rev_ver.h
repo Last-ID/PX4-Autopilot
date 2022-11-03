@@ -32,8 +32,11 @@
  ****************************************************************************/
 #pragma once
 
-#define HW_VERSION_EEPROM 		0x7		//!< Get hw_info from EEPROM
+#define HW_VERSION_EEPROM 		0x7		//!< Get hw_info from base EEPROM
 #define HW_EEPROM_VERSION_MIN	0x10	//!< Minimum supported version
+
+#define HW_REVISION_EEPROM 		0x7		//!< Get hw_info from imu EEPROM
+#define HW_EEPROM_REVISION_MIN	0x10	//!< Minimum supported revision
 
 #pragma pack(push, 1)
 
@@ -45,14 +48,27 @@ typedef struct {
 	mtd_mft_t version;
 	uint16_t hw_extended_ver;
 	uint16_t crc;
-} mtd_mft_v0_t;
+} mtd_mft_base_eeprom_v0_t;
 
 typedef struct {
-	mtd_mft_t  version;
+	mtd_mft_t version;
 	uint16_t hw_extended_ver;
 	//{device tree overlay}
 	uint16_t crc;
-} mtd_mft_v1_t;
+} mtd_mft_base_eeprom_v1_t;
+
+typedef struct {
+	mtd_mft_t version;
+	uint16_t hw_extended_rev;
+	uint16_t crc;
+} mtd_mft_imu_eeprom_v0_t;
+
+typedef struct {
+	mtd_mft_t version;
+	uint16_t hw_extended_rev;
+	//{device tree overlay}
+	uint16_t crc;
+} mtd_mft_imu_eeprom_v1_t;
 
 
 #pragma pack(pop)

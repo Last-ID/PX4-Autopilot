@@ -71,8 +71,8 @@ static const px4_mtd_entry_t base_eeprom = {
 	.npart = 2,
 	.partd = {
 		{
-			.type = MTD_MFT,
-			.path = "/fs/mtd_mft",
+			.type = MTD_MFT_BASE,
+			.path = "/fs/mtd_mft_base",
 			.nblocks = 248
 		},
 		{
@@ -86,17 +86,22 @@ static const px4_mtd_entry_t base_eeprom = {
 
 static const px4_mtd_entry_t imu_eeprom = {
 	.device = &i2c4,
-	.npart = 2,
+	.npart = 3,
 	.partd = {
 		{
 			.type = MTD_CALDATA,
 			.path = "/fs/mtd_caldata",
-			.nblocks = 248
+			.nblocks = 240 // 7680[bytes] = 32 * 240
+		},
+		{
+			.type = MTD_MFT_BASE,
+			.path = "/fs/mtd_mft_imu",
+			.nblocks = 8 // 256[bytes] = 32 * 8
 		},
 		{
 			.type = MTD_ID,
 			.path = "/fs/mtd_id",
-			.nblocks = 8 // 256 = 32 * 8
+			.nblocks = 8 // 256[bytes] = 32 * 8
 		}
 	},
 };
